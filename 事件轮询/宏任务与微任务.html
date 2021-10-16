@@ -6,5 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <script>
+      // Promsie 是微任务 setTimeout 是宏任务，微任务优先级高于宏任务，同步优先级最高
+      setTimeout(() => {
+        console.log('setTimeout') // 3
+      }, 0)
+
+      new Promise((resolve, reject) => {
+        resolve('成功')
+      }).then((value) => {
+        console.log(value) // 2
+      })
+
+      console.log('同步') // 1
+    </script>
+  </body>
 </html>
