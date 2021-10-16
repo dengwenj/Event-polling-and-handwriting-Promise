@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 如果一个任务计算时间比较长，不想影响同步的代码，可以使用异步的形式，比如：setTimeout 和 Promise
+      // let num = 987654321
+      // let count = 0
+      // for (var i = 0; i <= num; i++) {
+      //   count += num
+      // }
+      // console.log(count)
+      // console.log('dwj')
+
+      // 如果一个任务计算时间比较长，不想影响同步的代码，可以使用异步的形式，比如：setTimeout 和 Promise
+      async function xd(num) {
+        const res = await Promise.resolve().then(() => {
+          let count = 0
+          for (var i = 0; i <= num; i++) {
+            count += num
+          }
+          return count
+        })
+        console.log(res)
+      }
+      xd(987654321)
+      console.log('邓文杰')
+    </script>
+  </body>
+</html>
