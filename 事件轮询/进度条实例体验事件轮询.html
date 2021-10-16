@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        background-color: skyblue;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <script>
+      const div = document.querySelector('div')
+
+      function xd() {
+        let i = 0
+        ;(function run() {
+          if (++i <= 100) {
+            // console.log(i)
+            div.innerHTML = i
+            div.style.width = i + '%'
+            setTimeout(run, 10)
+          }
+        })()
+      }
+      xd()
+    </script>
+  </body>
+</html>
