@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Promise 执行器里面的代码是同步的
+      // 同步>微任务>宏任务
+
+      setTimeout(() => {
+        console.log('setTimeout') // 4
+
+        setTimeout(() => {
+          console.log('setTimeout setTimeout') // 7
+        }, 0)
+
+        new Promise((resolve, reject) => {
+          console.log('setTimeout Promise') // 5
+          resolve()
+        }).then(() => {
+          console.log('setTimeout then') // 6
+        })
+      }, 0)
+
+      new Promise((resolve, reject) => {
+        console.log('Promise') // 1
+        resolve()
+      }).then(() => {
+        console.log('then') // 3
+      })
+
+      console.log('dwj') // 2
+    </script>
+  </body>
+</html>
