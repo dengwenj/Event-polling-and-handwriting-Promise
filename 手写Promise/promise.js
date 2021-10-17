@@ -130,4 +130,20 @@ class Dwj {
       })
     })
   }
+
+  // 谁快用谁
+  static race(arr) {
+    return new Dwj((resolve, reject) => {
+      arr.forEach((item) => {
+        item.then(
+          (value) => {
+            resolve(value)
+          },
+          (error) => {
+            reject(error)
+          }
+        )
+      })
+    })
+  }
 }

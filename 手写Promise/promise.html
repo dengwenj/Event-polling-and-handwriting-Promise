@@ -23,19 +23,42 @@
       //   }
       // )
 
+      // let p1 = new Dwj((resolve, reject) => {
+      //   resolve('p1')
+      //   // reject('p1')
+      // })
+
+      // let p2 = new Dwj((resolve, reject) => {
+      //   resolve('p2')
+      //   // reject('p2')
+      // })
+
+      // Dwj.all([p1, p2]).then(
+      //   (value) => {
+      //     console.log(value) // ["p1", "p2"]
+      //   },
+      //   (error) => {
+      //     console.log(error)
+      //   }
+      // )
+
       let p1 = new Dwj((resolve, reject) => {
-        resolve('p1')
-        // reject('p1')
+        setTimeout(() => {
+          reject('p1')
+          // reject('p1')
+        }, 200)
       })
 
       let p2 = new Dwj((resolve, reject) => {
-        resolve('p2')
-        // reject('p2')
+        setTimeout(() => {
+          resolve('p2')
+          // reject('p2')
+        }, 1000)
       })
 
-      Dwj.all([p1, p2]).then(
+      Dwj.race([p1, p2]).then(
         (value) => {
-          console.log(value) // ["p1", "p2"]
+          console.log(value)
         },
         (error) => {
           console.log(error)
