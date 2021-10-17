@@ -47,7 +47,11 @@ class Dwj {
           onFulfilled: (value) => {
             try {
               const res = onFulfilled(value)
-              resolve(res)
+              if (res instanceof Dwj) {
+                res.then(resolve, reject)
+              } else {
+                resolve(res)
+              }
             } catch (error) {
               reject(error)
             }
@@ -55,7 +59,11 @@ class Dwj {
           onRejected: (value) => {
             try {
               const res = onRejected(value)
-              resolve(res)
+              if (res instanceof Dwj) {
+                res.then(resolve, reject)
+              } else {
+                resolve(res)
+              }
             } catch (error) {
               reject(error)
             }
@@ -67,7 +75,24 @@ class Dwj {
         setTimeout(() => {
           try {
             const res = onFulfilled(this.result)
-            resolve(res)
+            if (res instanceof Dwj) {
+              res.then(resolve, reject)
+            } else {
+              resolve(res)
+            }
+            // then 返回 Promise 对象处理，返回的这个 Promise 对象的状态就是这个 res 的状态
+            // if (res instanceof Dwj) {
+            //   res.then(
+            //     (value) => {
+            //       resolve(value)
+            //     },
+            //     (error) => {
+            //       reject(error)
+            //     }
+            //   )
+            // } else {
+            //   resolve(res)
+            // }
           } catch (error) {
             reject(error)
           }
@@ -78,7 +103,11 @@ class Dwj {
         setTimeout(() => {
           try {
             const res = onRejected(this.result)
-            resolve(res)
+            if (res instanceof Dwj) {
+              res.then(resolve, reject)
+            } else {
+              resolve(res)
+            }
           } catch (error) {
             reject(error)
           }

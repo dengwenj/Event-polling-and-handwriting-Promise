@@ -10,26 +10,29 @@
   <body>
     <script>
       let d = new Dwj((resolve, reject) => {
-        setTimeout(() => {
-          resolve('成功')
-          // reject('失败')
-          // console.log('邓文杰')
-        }, 1000)
-        // resolve('成功 ')
+        reject('成')
       })
-        .then()
+        .then(
+          (value) => {
+            return new Dwj((resolve, reject) => {
+              resolve(value)
+            })
+          },
+          (error) => {
+            console.log(error)
+            return new Dwj((resolve, reject) => {
+              resolve(error)
+            })
+          }
+        )
         .then(
           (value) => {
             console.log(value)
-            // console.log(a)
-            return 'then链式调用'
           },
           (error) => {
             console.log(error)
           }
         )
-
-      console.log('dwj')
     </script>
   </body>
 </html>
