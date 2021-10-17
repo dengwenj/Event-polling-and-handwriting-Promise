@@ -13,17 +13,25 @@
         setTimeout(() => {
           resolve('成功')
           // reject('失败')
-          console.log('邓文杰')
+          // console.log('邓文杰')
         }, 1000)
-      }).then(
-        (value) => {
-          console.log(value)
-          console.log(aa)
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
+        // resolve('成功 ')
+      })
+        .then(
+          (value) => {
+            console.log(value)
+            return 'then链式调用'
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+        .then(
+          (value) => {
+            console.log(value)
+          },
+          () => {}
+        )
       console.log('dwj')
     </script>
   </body>

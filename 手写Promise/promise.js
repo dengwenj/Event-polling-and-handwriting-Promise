@@ -40,44 +40,50 @@ class Dwj {
     if (typeof onFulfilled !== 'function') onFulfilled = () => {}
     if (typeof onRejected !== 'function') onRejected = () => {}
 
-    if (this.status === Dwj.PENDING) {
-      // this.callbacks.push(onFulfilled, onRejected)
-      this.callbacks.push({
-        onFulfilled: (value) => {
+    return new Dwj((resolve, reject) => {
+      if (this.status === Dwj.PENDING) {
+        // this.callbacks.push(onFulfilled, onRejected)
+        this.callbacks.push({
+          onFulfilled: (value) => {
+            try {
+              const res = onFulfilled(value)
+              resolve(res)
+            } catch (error) {
+              onRejected(error)
+            }
+          },
+          onRejected: (value) => {
+            try {
+              const res = onRejected(value)
+              resolve(res)
+            } catch (error) {
+              onRejected(error)
+            }
+          },
+        })
+      }
+
+      if (this.status === Dwj.FULFILLED) {
+        setTimeout(() => {
           try {
-            onFulfilled(value)
+            const res = onFulfilled(this.result)
+            resolve(res)
           } catch (error) {
             onRejected(error)
           }
-        },
-        onRejected: (value) => {
+        })
+      }
+
+      if (this.status === Dwj.REJECTED) {
+        setTimeout(() => {
           try {
-            onRejected(value)
+            const res = onRejected(this.result)
+            resolve(res)
           } catch (error) {
             onRejected(error)
           }
-        },
-      })
-    }
-
-    if (this.status === Dwj.FULFILLED) {
-      setTimeout(() => {
-        try {
-          onFulfilled(this.result)
-        } catch (error) {
-          onRejected(error)
-        }
-      })
-    }
-
-    if (this.status === Dwj.REJECTED) {
-      setTimeout(() => {
-        try {
-          onRejected(this.result)
-        } catch (error) {
-          onRejected(error)
-        }
-      })
-    }
+        })
+      }
+    })
   }
 }
