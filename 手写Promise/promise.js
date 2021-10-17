@@ -139,8 +139,8 @@ class Dwj {
           (value) => {
             resolve(value)
           },
-          (error) => {
-            reject(error)
+          (err) => {
+            reject(err)
           }
         )
       })
