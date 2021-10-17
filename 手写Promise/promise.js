@@ -111,4 +111,23 @@ class Dwj {
       reject(value)
     })
   }
+
+  static all(arr) {
+    const res = []
+    return new Dwj((resolve, reject) => {
+      arr.forEach((item) => {
+        item.then(
+          (value) => {
+            res.push(value)
+            if (arr.length === res.length) {
+              resolve(res)
+            }
+          },
+          (error) => {
+            reject(error)
+          }
+        )
+      })
+    })
+  }
 }

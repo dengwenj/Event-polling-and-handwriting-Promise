@@ -9,18 +9,34 @@
   <script src="./promise.js"></script>
   <body>
     <script>
-      let pp = new Dwj((resolve, reject) => {
-        setTimeout(() => {
-          resolve('成')
-        }, 1000)
-      })
-      let p = Dwj.resolve(pp)
-      p.then((value) => {
-        console.log(value)
+      // let p2 = new Promise((resolve, reject) => {
+      //   // resolve('p2')
+      //   reject('p2')
+      // })
+
+      // Promise.all([p1, p2]).then(
+      //   (value) => {
+      //     console.log(value) // ["p1", "p2"]
+      //   },
+      //   (error) => {
+      //     console.log(error) // p2
+      //   }
+      // )
+
+      let p1 = new Dwj((resolve, reject) => {
+        resolve('p1')
+        // reject('p1')
       })
 
-      Dwj.reject('失败').then(
-        () => {},
+      let p2 = new Dwj((resolve, reject) => {
+        resolve('p2')
+        // reject('p2')
+      })
+
+      Dwj.all([p1, p2]).then(
+        (value) => {
+          console.log(value) // ["p1", "p2"]
+        },
         (error) => {
           console.log(error)
         }
