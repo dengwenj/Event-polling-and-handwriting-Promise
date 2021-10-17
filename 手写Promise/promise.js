@@ -40,34 +40,38 @@ class Dwj {
     if (typeof onFulfilled !== 'function') onFulfilled = () => this.result
     if (typeof onRejected !== 'function') onRejected = this.result
 
-    return new Dwj((resolve, reject) => {
+    let promise = new Dwj((resolve, reject) => {
       if (this.status === Dwj.PENDING) {
         // this.callbacks.push(onFulfilled, onRejected)
         this.callbacks.push({
           onFulfilled: (value) => {
-            this.parse(onFulfilled(value), resolve, reject)
+            this.parse(promise, onFulfilled(value), resolve, reject)
           },
           onRejected: (value) => {
-            this.parse(onRejected(value), resolve, reject)
+            this.parse(promise, onRejected(value), resolve, reject)
           },
         })
       }
 
       if (this.status === Dwj.FULFILLED) {
         setTimeout(() => {
-          this.parse(onFulfilled(this.result), resolve, reject)
+          this.parse(promise, onFulfilled(this.result), resolve, reject)
         })
       }
 
       if (this.status === Dwj.REJECTED) {
         setTimeout(() => {
-          this.parse(onRejected(this.result), resolve, reject)
+          this.parse(promise, onRejected(this.result), resolve, reject)
         })
       }
+      return promise
     })
   }
 
-  parse(res, resolve, reject) {
+  parse(promise, res, resolve, reject) {
+    if (promise === res) {
+      throw new TypeError('Chaining cycle detected')
+    }
     try {
       if (res instanceof Dwj) {
         res.then(resolve, reject)

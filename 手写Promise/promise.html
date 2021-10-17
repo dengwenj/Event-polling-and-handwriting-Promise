@@ -9,32 +9,24 @@
   <script src="./promise.js"></script>
   <body>
     <script>
-      let d = new Dwj((resolve, reject) => {
+      // let d1 = new Dwj((resolve, reject) => {
+      //   resolve('成功')
+      // })
+      // console.log(d1)
+
+      // let d2 = d1.then(() => {
+      //   // return d2
+      // })
+      // console.log(d2)
+
+      let p = new Dwj((resolve, reject) => {
         setTimeout(() => {
-          reject('成')
+          resolve('成')
         }, 1000)
       })
-        .then(
-          (value) => {
-            return new Dwj((resolve, reject) => {
-              resolve(value)
-            })
-          },
-          (error) => {
-            console.log(error)
-            return new Dwj((resolve, reject) => {
-              resolve(error)
-            })
-          }
-        )
-        .then(
-          (value) => {
-            console.log(value)
-          },
-          (error) => {
-            console.log(error)
-          }
-        )
+      p.then((value) => {
+        console.log(value)
+      })
     </script>
   </body>
 </html>
