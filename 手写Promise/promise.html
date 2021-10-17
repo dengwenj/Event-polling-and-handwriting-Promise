@@ -17,24 +17,18 @@
         }, 1000)
         // resolve('成功 ')
       })
+        .then()
         .then(
           (value) => {
             console.log(value)
-            console.log(a)
+            // console.log(a)
             return 'then链式调用'
           },
           (error) => {
             console.log(error)
           }
         )
-        .then(
-          (value) => {
-            console.log(value)
-          },
-          (error) => {
-            console.log(error)
-          }
-        )
+
       console.log('dwj')
     </script>
   </body>

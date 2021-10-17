@@ -37,8 +37,8 @@ class Dwj {
   }
 
   then(onFulfilled, onRejected) {
-    if (typeof onFulfilled !== 'function') onFulfilled = () => {}
-    if (typeof onRejected !== 'function') onRejected = () => {}
+    if (typeof onFulfilled !== 'function') onFulfilled = () => this.result
+    if (typeof onRejected !== 'function') onRejected = this.result
 
     return new Dwj((resolve, reject) => {
       if (this.status === Dwj.PENDING) {
