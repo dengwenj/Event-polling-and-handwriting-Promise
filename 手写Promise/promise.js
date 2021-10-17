@@ -45,74 +45,50 @@ class Dwj {
         // this.callbacks.push(onFulfilled, onRejected)
         this.callbacks.push({
           onFulfilled: (value) => {
-            try {
-              const res = onFulfilled(value)
-              if (res instanceof Dwj) {
-                res.then(resolve, reject)
-              } else {
-                resolve(res)
-              }
-            } catch (error) {
-              reject(error)
-            }
+            this.parse(onFulfilled(value), resolve, reject)
           },
           onRejected: (value) => {
-            try {
-              const res = onRejected(value)
-              if (res instanceof Dwj) {
-                res.then(resolve, reject)
-              } else {
-                resolve(res)
-              }
-            } catch (error) {
-              reject(error)
-            }
+            this.parse(onRejected(value), resolve, reject)
           },
         })
       }
 
       if (this.status === Dwj.FULFILLED) {
         setTimeout(() => {
-          try {
-            const res = onFulfilled(this.result)
-            if (res instanceof Dwj) {
-              res.then(resolve, reject)
-            } else {
-              resolve(res)
-            }
-            // then 返回 Promise 对象处理，返回的这个 Promise 对象的状态就是这个 res 的状态
-            // if (res instanceof Dwj) {
-            //   res.then(
-            //     (value) => {
-            //       resolve(value)
-            //     },
-            //     (error) => {
-            //       reject(error)
-            //     }
-            //   )
-            // } else {
-            //   resolve(res)
-            // }
-          } catch (error) {
-            reject(error)
-          }
+          this.parse(onFulfilled(this.result), resolve, reject)
         })
       }
 
       if (this.status === Dwj.REJECTED) {
         setTimeout(() => {
-          try {
-            const res = onRejected(this.result)
-            if (res instanceof Dwj) {
-              res.then(resolve, reject)
-            } else {
-              resolve(res)
-            }
-          } catch (error) {
-            reject(error)
-          }
+          this.parse(onRejected(this.result), resolve, reject)
         })
       }
     })
+  }
+
+  parse(res, resolve, reject) {
+    try {
+      if (res instanceof Dwj) {
+        res.then(resolve, reject)
+      } else {
+        resolve(res)
+      }
+      // then 返回 Promise 对象处理，返回的这个 Promise 对象的状态就是这个 res 的状态
+      // if (res instanceof Dwj) {
+      //   res.then(
+      //     (value) => {
+      //       resolve(value)
+      //     },
+      //     (error) => {
+      //       reject(error)
+      //     }
+      //   )
+      // } else {
+      //   resolve(res)
+      // }
+    } catch (error) {
+      reject(error)
+    }
   }
 }

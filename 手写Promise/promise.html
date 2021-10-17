@@ -10,7 +10,9 @@
   <body>
     <script>
       let d = new Dwj((resolve, reject) => {
-        reject('成')
+        setTimeout(() => {
+          reject('成')
+        }, 1000)
       })
         .then(
           (value) => {
