@@ -6,6 +6,7 @@ class Dwj {
   constructor(executor) {
     this.status = Dwj.PENDING
     this.result = null
+    this.callbacks = [] // 执行器那里是异步的
     try {
       executor(this.resolve.bind(this), this.reject.bind(this))
     } catch (error) {
@@ -17,6 +18,8 @@ class Dwj {
     if (this.status === Dwj.PENDING) {
       this.status = Dwj.FULFILLED
       this.result = value
+      // this.callbacks[0](value)
+      this.callbacks.map((callback) => callback.onFulfilled(value))
     }
   }
 
@@ -24,12 +27,20 @@ class Dwj {
     if (this.status === Dwj.PENDING) {
       this.status = Dwj.REJECTED
       this.result = error
+      // this.callbacks[1](error)
+      this.callbacks.map((callback) => callback.onRejected(error))
     }
   }
 
   then(onFulfilled, onRejected) {
     if (typeof onFulfilled !== 'function') onFulfilled = () => {}
     if (typeof onRejected !== 'function') onRejected = () => {}
+
+    if (this.status === Dwj.PENDING) {
+      // this.callbacks.push(onFulfilled, onRejected)
+      this.callbacks.push({ onFulfilled, onRejected })
+    }
+
     if (this.status === Dwj.FULFILLED) {
       setTimeout(() => {
         try {
@@ -39,6 +50,7 @@ class Dwj {
         }
       })
     }
+
     if (this.status === Dwj.REJECTED) {
       setTimeout(() => {
         try {

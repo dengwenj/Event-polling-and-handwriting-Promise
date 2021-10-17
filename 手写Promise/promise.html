@@ -10,9 +10,10 @@
   <body>
     <script>
       let d = new Dwj((resolve, reject) => {
-        // console.log(a)
-        // resolve('成功')
-        reject('失败')
+        setTimeout(() => {
+          // resolve('成功')
+          reject('失败')
+        }, 1000)
       }).then(
         (value) => {
           console.log(value)
