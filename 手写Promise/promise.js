@@ -95,4 +95,20 @@ class Dwj {
       reject(error)
     }
   }
+
+  static resolve(value) {
+    return new Dwj((resolve, reject) => {
+      if (value instanceof Dwj) {
+        value.then(resolve, reject)
+      } else {
+        resolve(value)
+      }
+    })
+  }
+
+  static reject(value) {
+    return new Dwj((resolve, reject) => {
+      reject(value)
+    })
+  }
 }
