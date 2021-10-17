@@ -10,11 +10,17 @@
   <body>
     <script>
       let d = new Dwj((resolve, reject) => {
-        console.log(a)
-        resolve('成功')
-        reject('失败')
-      })
-      console.log(d)
+        // console.log(a)
+        // resolve('成功')
+        // reject('失败')
+      }).then(
+        (value) => {
+          console.log(value)
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
     </script>
   </body>
 </html>

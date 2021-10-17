@@ -26,4 +26,11 @@ class Dwj {
       this.result = error
     }
   }
+
+  then(onFulfilled, onRejected) {
+    if (typeof onFulfilled !== 'function') onFulfilled = () => {}
+    if (typeof onRejected !== 'function') onRejected = () => {}
+    if (this.status === Dwj.FULFILLED) onFulfilled(this.result)
+    if (this.status === Dwj.REJECTED) onRejected(this.result)
+  }
 }
