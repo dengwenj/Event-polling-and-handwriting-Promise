@@ -38,7 +38,22 @@ class Dwj {
 
     if (this.status === Dwj.PENDING) {
       // this.callbacks.push(onFulfilled, onRejected)
-      this.callbacks.push({ onFulfilled, onRejected })
+      this.callbacks.push({
+        onFulfilled: (value) => {
+          try {
+            onFulfilled(value)
+          } catch (error) {
+            onRejected(error)
+          }
+        },
+        onRejected: (value) => {
+          try {
+            onRejected(value)
+          } catch (error) {
+            onRejected(error)
+          }
+        },
+      })
     }
 
     if (this.status === Dwj.FULFILLED) {

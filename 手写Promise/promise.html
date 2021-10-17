@@ -11,12 +11,13 @@
     <script>
       let d = new Dwj((resolve, reject) => {
         setTimeout(() => {
-          // resolve('成功')
-          reject('失败')
+          resolve('成功')
+          // reject('失败')
         }, 1000)
       }).then(
         (value) => {
           console.log(value)
+          console.log(aa)
         },
         (error) => {
           console.log(error)
