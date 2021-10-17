@@ -49,7 +49,7 @@ class Dwj {
               const res = onFulfilled(value)
               resolve(res)
             } catch (error) {
-              onRejected(error)
+              reject(error)
             }
           },
           onRejected: (value) => {
@@ -57,7 +57,7 @@ class Dwj {
               const res = onRejected(value)
               resolve(res)
             } catch (error) {
-              onRejected(error)
+              reject(error)
             }
           },
         })
@@ -69,7 +69,7 @@ class Dwj {
             const res = onFulfilled(this.result)
             resolve(res)
           } catch (error) {
-            onRejected(error)
+            reject(error)
           }
         })
       }
@@ -80,7 +80,7 @@ class Dwj {
             const res = onRejected(this.result)
             resolve(res)
           } catch (error) {
-            onRejected(error)
+            reject(error)
           }
         })
       }

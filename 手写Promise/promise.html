@@ -20,6 +20,7 @@
         .then(
           (value) => {
             console.log(value)
+            console.log(a)
             return 'then链式调用'
           },
           (error) => {
@@ -30,7 +31,9 @@
           (value) => {
             console.log(value)
           },
-          () => {}
+          (error) => {
+            console.log(error)
+          }
         )
       console.log('dwj')
     </script>
