@@ -3,19 +3,27 @@ class Dwj {
   static FULFILLED = 'fulfilled'
   static REJECTED = 'rejected'
 
-  constructor(ex) {
+  constructor(executor) {
     this.status = Dwj.PENDING
     this.result = null
-    ex(this.resolve.bind(this), this.reject.bind(this))
+    try {
+      executor(this.resolve.bind(this), this.reject.bind(this))
+    } catch (error) {
+      this.reject(error)
+    }
   }
 
   resolve(value) {
-    this.status = Dwj.FULFILLED
-    this.result = value
+    if (this.status === Dwj.PENDING) {
+      this.status = Dwj.FULFILLED
+      this.result = value
+    }
   }
 
   reject(error) {
-    this.status = Dwj.REJECTED
-    this.result = error
+    if (this.status === Dwj.PENDING) {
+      this.status = Dwj.REJECTED
+      this.result = error
+    }
   }
 }
