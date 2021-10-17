@@ -30,7 +30,23 @@ class Dwj {
   then(onFulfilled, onRejected) {
     if (typeof onFulfilled !== 'function') onFulfilled = () => {}
     if (typeof onRejected !== 'function') onRejected = () => {}
-    if (this.status === Dwj.FULFILLED) onFulfilled(this.result)
-    if (this.status === Dwj.REJECTED) onRejected(this.result)
+    if (this.status === Dwj.FULFILLED) {
+      setTimeout(() => {
+        try {
+          onFulfilled(this.result)
+        } catch (error) {
+          onRejected(error)
+        }
+      })
+    }
+    if (this.status === Dwj.REJECTED) {
+      setTimeout(() => {
+        try {
+          onRejected(this.result)
+        } catch (error) {
+          onRejected(error)
+        }
+      })
+    }
   }
 }

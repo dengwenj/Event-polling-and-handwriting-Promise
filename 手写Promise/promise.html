@@ -12,7 +12,7 @@
       let d = new Dwj((resolve, reject) => {
         // console.log(a)
         // resolve('成功')
-        // reject('失败')
+        reject('失败')
       }).then(
         (value) => {
           console.log(value)
@@ -21,6 +21,7 @@
           console.log(error)
         }
       )
+      console.log('dwj')
     </script>
   </body>
 </html>
