@@ -19,7 +19,9 @@ class Dwj {
       this.status = Dwj.FULFILLED
       this.result = value
       // this.callbacks[0](value)
-      this.callbacks.map((callback) => callback.onFulfilled(value))
+      setTimeout(() => {
+        this.callbacks.map((callback) => callback.onFulfilled(value))
+      })
     }
   }
 
@@ -28,7 +30,9 @@ class Dwj {
       this.status = Dwj.REJECTED
       this.result = error
       // this.callbacks[1](error)
-      this.callbacks.map((callback) => callback.onRejected(error))
+      setTimeout(() => {
+        this.callbacks.map((callback) => callback.onRejected(error))
+      })
     }
   }
 
